@@ -3,6 +3,7 @@ import AddCarForm from '../../components/AddCarForm/AddCarForm';
 import * as carApi from '../../utils/car-api';
 import CarGrid from '../../components/CarGrid/CarGrid';
 import {  Grid } from 'semantic-ui-react'
+import PageHeader from '../../components/Header/Header';
 
 export default function Dashboard(){
 
@@ -30,6 +31,7 @@ export default function Dashboard(){
     async function getCars(){
         try{
             const data = await carApi.getAll();
+            console.log(data)
             setCars([...data.cars])
         }catch(err){
             console.log(err, ' error')
@@ -41,14 +43,19 @@ export default function Dashboard(){
     }, [])
 
     return(
-        <Grid centered>
+        <Grid centered >
+            <Grid.Row>
+                <Grid.Column>
+                    <PageHeader />
+                </Grid.Column>
+            </Grid.Row>
             <Grid.Row>
                 <Grid.Column>
                     <AddCarForm handleAddCar={handleAddCar}/>
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-                <Grid.Column>
+                <Grid.Column width={9}>
                     <CarGrid cars={cars} deleteCar={deleteCar} />
                 </Grid.Column>
             </Grid.Row>

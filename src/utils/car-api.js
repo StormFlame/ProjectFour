@@ -12,6 +12,24 @@ export function create(car){
     }).then(res => res.json())
 }
 
+export function update(car, carID){
+    return fetch(`${BASE_URL}/${carID}`, {
+        method: 'PUT',
+        body: car,
+        headers: {
+            'Authorization': 'Bearer ' + tokenService.getToken()
+        }
+    }).then(res => res.json())
+}
+
+export function getOne(carID){
+    return fetch(`${BASE_URL}/${carID}`,{
+        headers: {
+            'Authorization': 'Bearer ' + tokenService.getToken()
+        }
+    }).then(res => res.json());
+}
+
 export function getAll(){
     return fetch(BASE_URL, {
         headers: {

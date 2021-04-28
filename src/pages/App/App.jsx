@@ -5,6 +5,7 @@ import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import userService from '../../utils/userService'
 import Dashboard from '../Dashboard/Dashboard';
+import CarDetails from '../CarDetails/CarDetails';
 
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
              <Switch>
                 <Route exact path="/">
                     <Dashboard />
+                </Route>
+                <Route path="/cars/:id">
+                  <CarDetails />
                 </Route>
             </Switch>
             </>

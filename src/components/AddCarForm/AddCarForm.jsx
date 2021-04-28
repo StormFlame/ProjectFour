@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-// import { Button, Form, Grid, Header, Image,  Segment, Dropdown } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Image,  Segment, Dropdown } from 'semantic-ui-react'
 
 
 export default function AddCarForm(props){
@@ -11,7 +11,7 @@ export default function AddCarForm(props){
         make: '',
         model: '',
         year: new Date().getFullYear(),
-        imaegURL: '',
+        imageURL: '',
     })
 
     useEffect(() => {
@@ -69,25 +69,35 @@ export default function AddCarForm(props){
       }
 
     return(
-        <>
-            <form onSubmit={handleSubmit}>
-                <input onChange={handleChange} name="name" type="text"/>
-                <input required onChange={handleChange} name="year" type="number" value={car.year}/>
-                <select required onChange={handleChange} name="make" value={car.make}>
-                    {makes.map((make) => {
-                        return(<option key={make.MakeName} value={make.MakeName}>{make.MakeName}</option>)
-                        })
-                    }
-                </select>
-                <select required onChange={handleChange} name="model" value={car.model}>
-                    {models.map((model) => {
-                            return (<option value={model.Model_Name} key={model.Model_Name}>{model.Model_Name}</option>)
-                        })                    
-                    }
-                </select>
-                <input type="file" name="photo" onChange={handleFileInput}/>
-                <input required type="submit" value="Select"/>
-            </form>
-        </>
+        <Grid centered>
+            <Grid.Column style={{maxWidth: 450}}>
+                <Segment>
+                    <label>Add a Vehicle</label>
+                    <Form onSubmit={handleSubmit}>
+                        <label>Name(Optional)</label>
+                        <input onChange={handleChange} name="name" type="text" placeholder="Name"/>
+                        <label>Year</label>
+                        <input required onChange={handleChange} name="year" type="number" value={car.year}/>
+                        <label>Make</label>
+                        <select required onChange={handleChange} name="make" value={car.make}>
+                            {makes.map((make) => {
+                                return(<option key={make.MakeName} value={make.MakeName}>{make.MakeName}</option>)
+                                })
+                            }
+                        </select>
+                        <label>Model</label>
+                        <select required onChange={handleChange} name="model" value={car.model}>
+                            {models.map((model) => {
+                                    return (<option value={model.Model_Name} key={model.Model_Name}>{model.Model_Name}</option>)
+                                })                    
+                            }
+                        </select>
+                        <label>Image(Optional)</label>
+                        <input type="file" name="photo" onChange={handleFileInput}/>
+                        <input required type="submit" value="Select"/>
+                    </Form>
+                </Segment>
+            </Grid.Column>
+        </Grid>
     )
 }

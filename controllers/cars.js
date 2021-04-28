@@ -9,14 +9,16 @@ const BUCKET_NAME = process.env.BUCKET_NAME
 module.exports = {
     create,
     index,
-    deleteCar
+    deleteCar,
+    show: showCar,
+    update: updateCar
 }
 
 async function create(req, res){
     try{
         let image = undefined
         if(req.file !== undefined){
-            const filePath = `${uuidv4()}/${req.file.originalname}`;
+            const filePath = `images/${uuidv4()}${req.file.originalname}`;
             const params = { Bucket: BUCKET_NAME, Key: filePath, Body: req.file.buffer }
 
             image = await s3.upload(params).promise()
@@ -61,6 +63,37 @@ async function deleteCar(req, res){
         res.json({data: 'car removed'})
     }catch(err){
         console.log(err)
+        res.json({error: err})
+    }
+}
+
+async function showCar(req, res){
+    try{
+        Car.findById(req.params.id, function(err, car){
+            if(err) console.log(err)
+            res.status(200).json({car})
+        })
+    }catch(err){
+        res.json({error: err})
+    }
+}
+
+async function updateCar(req, res){
+    try{
+        let image = undefined
+        if(req.file !== undefined){
+            const filePath = `images/${uuidv4()}${req.file.originalname}`;
+            const params = { Bucket: BUCKET_NAME, Key: filePath, Body: req.file.buffer }
+
+            image = await s3.upload(params).promise()
+        }
+        const newValues = {$set: {name: req.body.name, imageURL: image ? image.Location : req.body.photo}}
+        Car.findByIdAndUpdate(req.params.id, newValues, function(err, car){
+            if(err) console.log(err)
+            res.status(200).json({car})
+        })
+
+    }catch(err){
         res.json({error: err})
     }
 }
