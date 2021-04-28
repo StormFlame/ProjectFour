@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import * as carApi from '../../utils/car-api';
 import CarCard from '../../components/CarCard/CarCard';
 import UpdateCarFrom from '../../components/UpdateCarForm/UpdateCarForm';
+import AddServiceForm from '../../components/AddServiceForm/AddServiceForm';
 
 export default function CarDetails(){
     const {id} = useParams()
@@ -42,7 +43,7 @@ export default function CarDetails(){
         <>
             <CarCard car={car}/>
             <UpdateCarFrom car={car} handleUpdateCar={updateCar}/>
-            <div>URL: {car.imaegURL}</div>
+            <AddServiceForm />
         </>
     )
 }

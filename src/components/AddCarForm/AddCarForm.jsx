@@ -94,7 +94,7 @@ export default function AddCarForm(props){
                         </select>
                         <label>Image(Optional)</label>
                         <input type="file" name="photo" onChange={handleFileInput}/>
-                        <input required type="submit" value="Select"/>
+                        <input required type="submit" value="Add Car"/>
                     </Form>
                 </Segment>
             </Grid.Column>

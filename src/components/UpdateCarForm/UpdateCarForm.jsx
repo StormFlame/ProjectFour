@@ -30,7 +30,7 @@ export default function AddCarForm(props){
       }
 
     return(
-        <Grid centered>
+        <Grid>
             <Grid.Column style={{maxWidth: 450}}>
                 <Segment>
                     <label>Add a Vehicle</label>
@@ -39,7 +39,7 @@ export default function AddCarForm(props){
                         <input onChange={handleChange} name="name" type="text" placeholder="Name"/>
                         <label>Update Image</label>
                         <input type="file" name="photo" onChange={handleFileInput}/>
-                        <input required type="submit" value="Select"/>
+                        <input required type="submit" value="Update Car"/>
                     </Form>
                 </Segment>
             </Grid.Column>
