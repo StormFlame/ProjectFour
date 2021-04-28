@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Button, Form, Grid, Header, Image,  Segment, Dropdown } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Image,  Segment, Dropdown, PopupHeader } from 'semantic-ui-react'
 
 
 export default function AddServiceForm(props){
@@ -12,11 +12,13 @@ export default function AddServiceForm(props){
     function handleSubmit(e) {
         e.preventDefault();
 
-        const formData = new FormData()
-        formData.append('name', service.name);
-        formData.append('cost', service.cost);
-        formData.append('date', service.date);
-        props.handleAddService(formData)
+        const newService = {
+            name: service.name,
+            cost: service.cost,
+            date: service.date
+        }
+
+        props.handleAddService(newService)
     }
 
     function handleChange(e) {
@@ -31,12 +33,12 @@ export default function AddServiceForm(props){
         <Grid>
             <Grid.Column style={{maxWidth: 450}}>
                 <Segment>
-                    <label>Add a Vehicle</label>
+                    <label>Add a Service</label>
                     <Form onSubmit={handleSubmit}>
                         <label>Name of Service</label>
                         <input onChange={handleChange} name="name" type="text" placeholder="Name"/>
                         <label>Cost of Service</label>
-                        <input onChange={handleChange} name="service" type="text" placeholder="Cost"/>
+                        <input onChange={handleChange} name="cost" type="number" min="0.01" step="0.01" max="100000" placeholder="Cost"/>
                         <label>Date of Service</label>
                         <input onChange={handleChange} name="date" type="date" placeholder="Cost"/>
                         <input required type="submit" value="Add Service"/>
