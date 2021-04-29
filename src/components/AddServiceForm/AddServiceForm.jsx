@@ -31,7 +31,7 @@ export default function AddServiceForm(props){
 
     return(
         <Grid>
-            <Grid.Column style={{maxWidth: 450}}>
+            <Grid.Column>
                 <Segment>
                     <label>Add a Service</label>
                     <Form onSubmit={handleSubmit}>

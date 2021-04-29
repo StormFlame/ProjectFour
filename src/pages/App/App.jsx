@@ -36,10 +36,10 @@ function App() {
             <> 
              <Switch>
                 <Route exact path="/">
-                    <Dashboard />
+                    <Dashboard handleLogout={handleLogout}/>
                 </Route>
                 <Route path="/cars/:id">
-                  <CarDetails />
+                  <CarDetails handleLogout={handleLogout}/>
                 </Route>
             </Switch>
             </>

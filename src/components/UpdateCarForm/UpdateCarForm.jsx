@@ -31,9 +31,9 @@ export default function AddCarForm(props){
 
     return(
         <Grid>
-            <Grid.Column style={{maxWidth: 450}}>
+            <Grid.Column>
                 <Segment>
-                    <label>Add a Vehicle</label>
+                    <label>Update Vehicle</label>
                     <Form onSubmit={handleSubmit}>
                         <label>Update Name</label>
                         <input onChange={handleChange} name="name" type="text" placeholder="Name"/>

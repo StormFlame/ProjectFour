@@ -5,7 +5,7 @@ import CarGrid from '../../components/CarGrid/CarGrid';
 import {  Grid } from 'semantic-ui-react'
 import PageHeader from '../../components/Header/Header';
 
-export default function Dashboard(){
+export default function Dashboard({handleLogout}){
 
     const [cars, setCars] = useState([])
 
@@ -46,11 +46,11 @@ export default function Dashboard(){
         <Grid centered >
             <Grid.Row>
                 <Grid.Column>
-                    <PageHeader />
+                    <PageHeader handleLogout={handleLogout}/>
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-                <Grid.Column>
+                <Grid.Column width={5}>
                     <AddCarForm handleAddCar={handleAddCar}/>
                 </Grid.Column>
             </Grid.Row>

@@ -70,7 +70,7 @@ export default function AddCarForm(props){
 
     return(
         <Grid centered>
-            <Grid.Column style={{maxWidth: 450}}>
+            <Grid.Column>
                 <Segment>
                     <label>Add a Vehicle</label>
                     <Form onSubmit={handleSubmit}>

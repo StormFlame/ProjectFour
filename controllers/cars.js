@@ -46,7 +46,7 @@ async function create(req, res){
 async function index(req, res){
     try {
         // on a query aka .find({}) you just call .exec() to execulate the .populate('user')
-        const cars = await Car.find().populate('user').exec()
+        const cars = await Car.find({'user':req.user._id}).populate('user').exec()
         // userSchema.set('toObject') gets invoked, to delete the password
         // when we populate the user so we don't have to worry about sending over the password!
         res.status(200).json({cars})

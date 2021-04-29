@@ -6,11 +6,12 @@ import CarCard from '../../components/CarCard/CarCard';
 import UpdateCarFrom from '../../components/UpdateCarForm/UpdateCarForm';
 import AddServiceForm from '../../components/AddServiceForm/AddServiceForm';
 import ServicesTable from '../../components/ServicesTable/ServicesTable';
-import { Grid } from "semantic-ui-react";
+import { Grid, Button } from "semantic-ui-react";
 import PageHeader from '../../components/Header/Header';
 
-export default function CarDetails(){
+export default function CarDetails({handleLogout}){
     const {id} = useParams()
+    const [showUpdateForm, setShowUpdateForm] = useState(false)
     const[services, setServices] = useState([])
     const [car, setCar] = useState({
         name: '',
@@ -67,22 +68,29 @@ export default function CarDetails(){
         }
     }
 
+    const toggleUpdateForm = () =>{
+        showUpdateForm ? setShowUpdateForm(false) : setShowUpdateForm(true)
+    }
+
     return(
-        <Grid centered >
+        <Grid centered divided>
             <Grid.Row>
                 <Grid.Column>
-                    <PageHeader />
+                    <PageHeader handleLogout={handleLogout}/>
                 </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
-                <Grid.Column>
+            <Grid.Row columns={2}>
+                <Grid.Column width={5} textAlign='center'>
                     <CarCard car={car}/>
-                    <UpdateCarFrom car={car} handleUpdateCar={updateCar}/>
+                    <button className="ui button" onClick={toggleUpdateForm}>Update</button>
+                    {showUpdateForm ? <UpdateCarFrom car={car} handleUpdateCar={updateCar}/> : ""}
+                </Grid.Column>
+                <Grid.Column width={5}>
                     <AddServiceForm handleAddService={handleAddService}/>
                 </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
-                <Grid.Column width={9}>
+            <Grid.Row >
+                <Grid.Column width={10}>
                     <ServicesTable services={services} />
                 </Grid.Column>
             </Grid.Row>

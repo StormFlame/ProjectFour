@@ -3,7 +3,7 @@ import { Table } from 'semantic-ui-react'
 
 export default function ServicesTable({services}){
     return(
-        <Table style={{maxWidth: 500}}>
+        <Table>
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Name</Table.HeaderCell>
