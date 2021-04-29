@@ -8,6 +8,7 @@ import AddServiceForm from '../../components/AddServiceForm/AddServiceForm';
 import ServicesTable from '../../components/ServicesTable/ServicesTable';
 import { Grid, Button } from "semantic-ui-react";
 import PageHeader from '../../components/Header/Header';
+import './CarDetails.css'
 
 export default function CarDetails({handleLogout}){
     const {id} = useParams()
@@ -49,11 +50,21 @@ export default function CarDetails({handleLogout}){
             const fullService = {
                 car: car,
                 name: newService.name,
+                servicer: newService.servicer,
                 cost: newService.cost,
                 date: newService.date
             }
             const data = await serviceApi.create(fullService)
             setServices([...services, data.service])
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    async function handleDeleteService(serviceId){
+        try{
+            const data = await serviceApi.deleteService(serviceId)
+            getService()
         }catch(err){
             console.log(err)
         }
@@ -73,27 +84,29 @@ export default function CarDetails({handleLogout}){
     }
 
     return(
-        <Grid centered divided>
-            <Grid.Row>
-                <Grid.Column>
-                    <PageHeader handleLogout={handleLogout}/>
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns={2}>
-                <Grid.Column width={5} textAlign='center'>
-                    <CarCard car={car}/>
-                    <button className="ui button" onClick={toggleUpdateForm}>Update</button>
-                    {showUpdateForm ? <UpdateCarFrom car={car} handleUpdateCar={updateCar}/> : ""}
-                </Grid.Column>
-                <Grid.Column width={5}>
-                    <AddServiceForm handleAddService={handleAddService}/>
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row >
-                <Grid.Column width={10}>
-                    <ServicesTable services={services} />
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
+        <>
+                <Grid centered divided>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <PageHeader handleLogout={handleLogout}/>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row columns={2}>
+                        <Grid.Column width={5} textAlign='center'>
+                            <CarCard car={car}/>
+                            <button className="ui button" onClick={toggleUpdateForm}>Update</button>
+                            {showUpdateForm ? <UpdateCarFrom car={car} handleUpdateCar={updateCar}/> : ""}
+                        </Grid.Column>
+                        <Grid.Column width={5}>
+                            <AddServiceForm handleAddService={handleAddService}/>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column width={10} textAlign='center'>
+                            <ServicesTable services={services} handleDeleteService={handleDeleteService}/>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+        </>
     )
 }

@@ -6,7 +6,7 @@ export default function PageHeader({handleLogout}){
     return (
         <Segment clearing>
             <Header as='h2' floated='left'>
-                <Link to="/">Home</Link>
+                <Link to="/">Dashboard</Link>
             </Header>
             <Header as='h2' floated='right'> 
                 <Link to='' onClick={handleLogout}>Logout</Link>

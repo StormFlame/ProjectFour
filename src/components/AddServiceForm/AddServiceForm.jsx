@@ -7,6 +7,7 @@ export default function AddServiceForm(props){
         name: '',
         cost: '',
         date: '',
+        servicer: ''
     })
 
     function handleSubmit(e) {
@@ -15,7 +16,8 @@ export default function AddServiceForm(props){
         const newService = {
             name: service.name,
             cost: service.cost,
-            date: service.date
+            date: service.date,
+            servicer: service.servicer
         }
 
         props.handleAddService(newService)
@@ -36,11 +38,13 @@ export default function AddServiceForm(props){
                     <label>Add a Service</label>
                     <Form onSubmit={handleSubmit}>
                         <label>Name of Service</label>
-                        <input onChange={handleChange} name="name" type="text" placeholder="Name"/>
+                        <input required onChange={handleChange} name="name" type="text" placeholder="Name"/> 
+                        <label>Serviced By</label>
+                        <input required onChange={handleChange} name="servicer" type="text" placeholder="Serviced By"/>
                         <label>Cost of Service</label>
-                        <input onChange={handleChange} name="cost" type="number" min="0.01" step="0.01" max="100000" placeholder="Cost"/>
+                        <input required onChange={handleChange} name="cost" type="number" min="0.01" step="0.01" max="100000" placeholder="Cost"/>
                         <label>Date of Service</label>
-                        <input onChange={handleChange} name="date" type="date" placeholder="Cost"/>
+                        <input required onChange={handleChange} name="date" type="date" placeholder="Cost"/>
                         <input required type="submit" value="Add Service"/>
                     </Form>
                 </Segment>

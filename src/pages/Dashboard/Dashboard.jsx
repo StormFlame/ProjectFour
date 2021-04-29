@@ -4,6 +4,7 @@ import * as carApi from '../../utils/car-api';
 import CarGrid from '../../components/CarGrid/CarGrid';
 import {  Grid } from 'semantic-ui-react'
 import PageHeader from '../../components/Header/Header';
+import './Dashboard.css'
 
 export default function Dashboard({handleLogout}){
 
@@ -43,22 +44,24 @@ export default function Dashboard({handleLogout}){
     }, [])
 
     return(
-        <Grid centered >
-            <Grid.Row>
-                <Grid.Column>
-                    <PageHeader handleLogout={handleLogout}/>
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column width={5}>
-                    <AddCarForm handleAddCar={handleAddCar}/>
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column width={9}>
-                    <CarGrid cars={cars} deleteCar={deleteCar} />
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
+        <>
+                <Grid centered >
+                    <Grid.Row>
+                        <Grid.Column>
+                            <PageHeader handleLogout={handleLogout}/>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column width={5}>
+                            <AddCarForm handleAddCar={handleAddCar}/>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column width={9}>
+                            <CarGrid cars={cars} deleteCar={deleteCar} />
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+        </>
     )
 }

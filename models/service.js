@@ -6,6 +6,7 @@ const serviceSchema = new schema({
     name: String,
     cost: String,
     date: Date,
+    servicer: String
 })
 
 module.exports = mongoose.model('Service', serviceSchema);

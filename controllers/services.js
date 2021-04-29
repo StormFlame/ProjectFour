@@ -5,7 +5,8 @@ const BUCKET_NAME = process.env.BUCKET_NAME
 
 module.exports = {
     create,
-    index
+    index,
+    delete: deleteService
 }
 
 async function create(req, res){
@@ -13,6 +14,7 @@ async function create(req, res){
         const service = await Service.create({
             car: req.body.car,
             name: req.body.name,
+            servicer: req.body.servicer,
             cost: req.body.cost,
             date: req.body.date
         })
@@ -34,5 +36,17 @@ async function index(req, res){
         res.status(200).json({services})
     } catch(err){
         res.json(err)
+    }
+}
+
+async function deleteService(req, res){
+    try{
+        const service = Service.findOneAndDelete({'_id':req.params.id}, function(err){
+            if(err) console.log(err)
+        })
+        res.json({data: 'service removed'})
+    }catch(err){
+        console.log(err)
+        res.json({error: err})
     }
 }
