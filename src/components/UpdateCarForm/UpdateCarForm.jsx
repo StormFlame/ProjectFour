@@ -33,7 +33,6 @@ export default function AddCarForm(props){
         <Grid>
             <Grid.Column>
                 <Segment>
-                    <label>Update Vehicle</label>
                     <Form onSubmit={handleSubmit}>
                         <label>Update Name</label>
                         <input onChange={handleChange} name="name" type="text" placeholder="Name"/>

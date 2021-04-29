@@ -18,7 +18,7 @@ export default function ServicesTable({services, handleDeleteService}){
                         <Table.HeaderCell>Serviced By</Table.HeaderCell>
                         <Table.HeaderCell>Cost</Table.HeaderCell>
                         <Table.HeaderCell>Date</Table.HeaderCell>
-                        {showUpdateService ? <Table.HeaderCell>Delete</Table.HeaderCell>: ''}
+                        {showUpdateService ? <Table.HeaderCell>Delete</Table.HeaderCell>: undefined}
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -29,7 +29,7 @@ export default function ServicesTable({services, handleDeleteService}){
                                 <Table.Cell>{service.servicer}</Table.Cell>
                                 <Table.Cell>${service.cost}</Table.Cell>
                                 <Table.Cell>{service.date.slice(0,9)}</Table.Cell>
-                                {showUpdateService ? <Table.Cell><button className="ui button" onClick={()=>handleDeleteService(service._id)}>X</button></Table.Cell>: ''}
+                                {showUpdateService ? <Table.Cell><button className="ui button" onClick={()=>handleDeleteService(service._id)}>X</button></Table.Cell>: undefined}
                             </Table.Row>
                         )
                     })}
