@@ -7,6 +7,7 @@ export default function AddCarForm(props){
     const [car, setCar] = useState({
         name: '',
         imageURL: '',
+        performance: false
     })
 
     function handleSubmit(e) {
@@ -15,6 +16,7 @@ export default function AddCarForm(props){
         const formData = new FormData()
         formData.append('photo', selectedFile ? selectedFile : props.car.imageURL)
         formData.append('name', car.name ? car.name : props.car.name)
+        formData.append('performance', car.performance)
         props.handleUpdateCar(formData)
     }
 
@@ -38,6 +40,9 @@ export default function AddCarForm(props){
                         <input onChange={handleChange} name="name" type="text" placeholder="Name"/>
                         <label>Update Image</label>
                         <input type="file" name="photo" onChange={handleFileInput}/>
+                        <label>Is this car a performance build? </label>
+                        <input onChange={handleChange} name="performance" type="checkbox" value={true}/>
+                        <br/>
                         <input required type="submit" value="Update Car"/>
                     </Form>
                 </Segment>

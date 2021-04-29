@@ -28,9 +28,11 @@ async function create(req, res){
             name: req.body.name,
             make: req.body.make,
             model: req.body.model,
+            submodel: req.body.submodel,
             year: req.body.year,
             imageURL: image ? image.Location : '',
-            user: req.user
+            user: req.user,
+            performance: false
         })
 
         const populatedCar = await car.populate('user').execPopulate();
@@ -87,7 +89,7 @@ async function updateCar(req, res){
 
             image = await s3.upload(params).promise()
         }
-        const newValues = {$set: {name: req.body.name, imageURL: image ? image.Location : req.body.photo}}
+        const newValues = {$set: {name: req.body.name, imageURL: image ? image.Location : req.body.photo}, performance: req.body.performance}
         Car.findByIdAndUpdate(req.params.id, newValues, function(err, car){
             if(err) console.log(err)
             res.status(200).json({car})

@@ -10,6 +10,7 @@ export default function AddCarForm(props){
         name: '',
         make: '',
         model: '',
+        submodel: '',
         year: new Date().getFullYear(),
         imageURL: '',
     })
@@ -53,6 +54,7 @@ export default function AddCarForm(props){
         formData.append('year', car.year)
         formData.append('make', car.make)
         formData.append('model', car.model)
+        formData.append('submodel', car.submodel)
 
         props.handleAddCar(formData)
     }
@@ -92,6 +94,8 @@ export default function AddCarForm(props){
                                 })                    
                             }
                         </select>
+                        <label>Submodel</label>
+                        <input onChange={handleChange} name="submodel" type="text" placeholder="Submodel"/>
                         <label>Image(Optional)</label>
                         <input type="file" name="photo" onChange={handleFileInput}/>
                         <input required type="submit" value="Add Car"/>

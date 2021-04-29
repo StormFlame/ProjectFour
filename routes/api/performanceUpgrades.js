@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const usersCtrl = require('../../controllers/users');
+const performanceUpgradesCtrl = require('../../controllers/performanceUpgrades');
 const multer = require('multer');
 const upload = multer();
+
 /*---------- Public Routes ----------*/
-router.post('/signup', upload.single('photo'), usersCtrl.signup);
-router.post('/login', usersCtrl.login);
-router.get('/:username', usersCtrl.profile);
+router.post('/cars/:id/performanceUpgrades', performanceUpgradesCtrl.create);
+router.delete('/performanceUpgrades/:id', performanceUpgradesCtrl.delete);
+
+
 
 /*---------- Protected Routes ----------*/
 

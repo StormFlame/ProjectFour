@@ -6,6 +6,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import userService from '../../utils/userService'
 import Dashboard from '../Dashboard/Dashboard';
 import CarDetails from '../CarDetails/CarDetails';
+import ProfilePage from '../ProfilePage/ProfilePage';
 
 
 function App() {
@@ -36,10 +37,13 @@ function App() {
             <> 
              <Switch>
                 <Route exact path="/">
-                    <Dashboard handleLogout={handleLogout}/>
+                    <Dashboard handleLogout={handleLogout} user={user}/>
                 </Route>
                 <Route path="/cars/:id">
-                  <CarDetails handleLogout={handleLogout}/>
+                  <CarDetails handleLogout={handleLogout} user={user}/>
+                </Route>
+                <Route path="/:username">
+                  <ProfilePage handleLogout={handleLogout} user={user}/>
                 </Route>
             </Switch>
             </>

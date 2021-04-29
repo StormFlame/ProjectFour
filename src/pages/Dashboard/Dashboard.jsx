@@ -6,7 +6,7 @@ import {  Grid } from 'semantic-ui-react'
 import PageHeader from '../../components/Header/Header';
 import './Dashboard.css'
 
-export default function Dashboard({handleLogout}){
+export default function Dashboard({user, handleLogout}){
 
     const [cars, setCars] = useState([])
 
@@ -48,7 +48,7 @@ export default function Dashboard({handleLogout}){
                 <Grid centered >
                     <Grid.Row>
                         <Grid.Column>
-                            <PageHeader handleLogout={handleLogout}/>
+                            <PageHeader handleLogout={handleLogout} user={user}/>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -58,7 +58,7 @@ export default function Dashboard({handleLogout}){
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column width={9}>
-                            <CarGrid cars={cars} deleteCar={deleteCar} />
+                            <CarGrid cars={cars} deleteCar={deleteCar} isProfile={false}/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
