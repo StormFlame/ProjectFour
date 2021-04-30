@@ -6,7 +6,7 @@ export default function CarCard({car, deleteCar, isProfile}){
     return(
             <Card centered key={car._id}>
                 <Card.Content>
-                    <Card.Header>{car.name ? car.name : 'Untitled'} {car.performance ? "*" : ''}</Card.Header>
+                    <Card.Header>{car.name ? car.name : 'Untitled'} {car.performance ? "PRF" : ''}</Card.Header>
                     <Card.Description>{car.year} {car.make} {car.model} {car.submodel}</Card.Description>
 
                     <Link to={`/cars/${car._id}`}>

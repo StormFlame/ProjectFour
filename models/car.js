@@ -5,7 +5,6 @@ const performanceUpgrade = schema({
     part: String,
     brand: String,
     cost: String,
-    date: String,
     carId: {type: schema.Types.ObjectId}
 })
 

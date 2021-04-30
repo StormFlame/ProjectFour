@@ -11,7 +11,7 @@ module.exports = {
 async function create(req, res){
     try{
         const car = await Car.findById(req.params.id); 
-        car.performanceUpgrades.push({part: req.body.part, brand: req.body.brand, cost: req.body.cost, date: req.body.date, carId: req.user._id})
+        car.performanceUpgrades.push({part: req.body.part, brand: req.body.brand, cost: req.body.cost, carId: req.params.id})
         await car.save()
         res.status(201).json({data: 'performance upgrade added'})
         
@@ -22,10 +22,12 @@ async function create(req, res){
 
 async function deletePerformanceUpgrade(req, res){
     try{
-        const car = Car.findOne({'performanceUpgrades._id': req.parmas.id, 'performanceUpgrades.carId': req.user.id})
-        car.performanceUpgrades.remove(req.params.id)
-        await car.save()
-        res.json({data: 'performance upgrade removed'})
+        const car = Car.findOne({'performanceUpgrades._id': req.params.id}, function(err, car){
+            if(err) console.log(err)
+            car.performanceUpgrades.remove(req.params.id)
+            car.save()
+            res.json({data: 'performance upgrade removed'})
+        })
     }catch(err){
         console.log(err)
         res.json({error: err})

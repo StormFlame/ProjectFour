@@ -10,11 +10,15 @@ import ServicesTable from '../../components/ServicesTable/ServicesTable';
 import { Grid, Menu } from "semantic-ui-react";
 import PageHeader from '../../components/Header/Header';
 import './CarDetails.css'
+import AddPerformanceUpgradeForm from '../../components/AddPerformanceUpgradeForm/AddPerformanceUpgradeForm';
+import PerformanceUpgradesTable from '../../components/PerformanceUpgradesTable/PerformanceUpgradesTable';
 
 export default function CarDetails({user,handleLogout}){
     const {id} = useParams()
     const [showUpdateForm, setShowUpdateForm] = useState(false)
+    const [showServicesTable, setShowServicesTable] = useState(true)
     const[services, setServices] = useState([])
+    const[performanceUpgrades, setperformanceUpgrades] = useState([])
     const [car, setCar] = useState({
         name: '',
         make: '',
@@ -33,6 +37,7 @@ export default function CarDetails({user,handleLogout}){
         try{
             const data = await carApi.getOne(id)
             setCar(data.car)
+            setperformanceUpgrades([...data.car.performanceUpgrades])
         }catch(err){
             console.log(err)
         }
@@ -81,20 +86,18 @@ export default function CarDetails({user,handleLogout}){
         }
     }
 
-    async function addPerformanceUpgrade(){
+    async function handleAddPerformanceUpgrade(newPerformanceUpgrade){
         try{
-            const data = await performanceUpgradesApi.create(id)
-            console.log(data, 'Add performance upgrades data')
+            const data = await performanceUpgradesApi.create(newPerformanceUpgrade, id)
             getCar()
         }catch(err){
             console.log(err)
         }
     }
 
-    async function removePerformanceUpgrade(performanceUpgradeId){
+    async function handleRemovePerformanceUpgrade(performanceUpgradeId){
         try{
             const data = await performanceUpgradesApi.removePerformanceUpgrade(performanceUpgradeId)
-            console.log(data, 'remove performance upgrades data')
             getCar()
         }catch(err){
             console.log(err)
@@ -105,6 +108,10 @@ export default function CarDetails({user,handleLogout}){
         showUpdateForm ? setShowUpdateForm(false) : setShowUpdateForm(true)
     }
 
+    const handleShowServicesTable = (show) =>{
+        show ? setShowServicesTable(false) : setShowServicesTable(true)
+    }
+
     return(
         <>
                 <Grid centered divided>
@@ -113,28 +120,37 @@ export default function CarDetails({user,handleLogout}){
                             <PageHeader handleLogout={handleLogout} user={user}/>
                         </Grid.Column>
                     </Grid.Row>
-                    <Grid.Row columns={2}>
+                    <Grid.Row columns={car.performance ? 3 : 2}>
+                       {car.performance ? 
+                        <Grid.Column width={5}>
+                            Stats Table
+                        </Grid.Column>
+                        : undefined}
                         <Grid.Column width={5} textAlign='center'>
                             <CarCard car={car} isProfile={true}/>
                             <button className="ui button" onClick={toggleUpdateForm}>Update</button>
                             {showUpdateForm ? <UpdateCarFrom car={car} handleUpdateCar={updateCar}/> : ""}
                         </Grid.Column>
                         <Grid.Column width={5}>
-                            <AddServiceForm handleAddService={handleAddService}/>
+                            {showServicesTable ?
+                                <AddServiceForm handleAddService={handleAddService}/>
+                                :
+                                <AddPerformanceUpgradeForm handleAddPerformanceUpgrade={handleAddPerformanceUpgrade}/>
+                            }
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column width={10} textAlign='center'>
                         {car.performance ?
                             <Menu pointing secondary>
-                                <Menu.Item name='Services' onClick={toggleUpdateForm}/>
-                                <Menu.Item name='Performance' onClick={toggleUpdateForm}/>
+                                <Menu.Item name='Services' onClick={()=>handleShowServicesTable(false)}/>
+                                <Menu.Item name='Performance' onClick={()=>handleShowServicesTable(true)}/>
                             </Menu>
                             : undefined}
-                            {car.performance ? 
+                            {showServicesTable ? 
                                 <ServicesTable services={services} handleDeleteService={handleDeleteService}/>
                                 :
-                                <ServicesTable services={services} handleDeleteService={handleDeleteService}/>
+                                <PerformanceUpgradesTable performanceUpgrades={performanceUpgrades} handleDeleteUpgrade={handleRemovePerformanceUpgrade}/>
                             }
                         </Grid.Column>
                     </Grid.Row>

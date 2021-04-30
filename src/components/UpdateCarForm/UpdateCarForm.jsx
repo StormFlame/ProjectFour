@@ -4,10 +4,11 @@ import { Button, Form, Grid, Header, Image,  Segment, Dropdown } from 'semantic-
 
 export default function AddCarForm(props){
     const [selectedFile, setSelectedFile] = useState('')
+    const [checked, setChecked] = useState(props.car.performance)
     const [car, setCar] = useState({
         name: '',
         imageURL: '',
-        performance: false
+        performance: undefined
     })
 
     function handleSubmit(e) {
@@ -21,9 +22,14 @@ export default function AddCarForm(props){
     }
 
     function handleChange(e) {
+        if(e.target.name === 'performance'){
+            setChecked(checked ? false : true)
+        }
+
         setCar({
             ...car,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            performance: checked ? false : true
         })
     }
 
@@ -41,7 +47,7 @@ export default function AddCarForm(props){
                         <label>Update Image</label>
                         <input type="file" name="photo" onChange={handleFileInput}/>
                         <label>Is this car a performance build? </label>
-                        <input onChange={handleChange} name="performance" type="checkbox" value={true}/>
+                        <input onChange={handleChange} name="performance" type="checkbox" value={checked} checked={checked ? true : false}/>
                         <br/>
                         <input required type="submit" value="Update Car"/>
                     </Form>

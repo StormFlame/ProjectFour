@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import { Table } from 'semantic-ui-react'
 
-export default function ServicesTable({services, handleDeleteService}){
+export default function PerformanceUpgradesTable({performanceUpgrades, handleDeleteUpgrade}){
 
-    const [showUpdateService, setShowUpdateService] = useState(false)
+    const [showUpdateUpgrade, setShowUpdateUpgrade] = useState(false)
 
-    const toggleUpdateService = () =>{
-        showUpdateService ? setShowUpdateService(false) : setShowUpdateService(true)
+    const toggleUpdateUpgrade = () =>{
+        showUpdateUpgrade ? setShowUpdateUpgrade(false) : setShowUpdateUpgrade(true)
     }
 
     return(
@@ -17,25 +17,23 @@ export default function ServicesTable({services, handleDeleteService}){
                         <Table.HeaderCell>Part</Table.HeaderCell>
                         <Table.HeaderCell>Brand</Table.HeaderCell>
                         <Table.HeaderCell>Cost</Table.HeaderCell>
-                        <Table.HeaderCell>Date</Table.HeaderCell>
-                        {showUpdateService ? <Table.HeaderCell>Delete</Table.HeaderCell>: undefined}
+                        {showUpdateUpgrade ? <Table.HeaderCell>Delete</Table.HeaderCell>: undefined}
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {services.map((service) => {
+                    {performanceUpgrades.map((upgrade) => {
                         return(
-                            <Table.Row key={service._id}>
-                                <Table.Cell>{service.name}</Table.Cell>
-                                <Table.Cell>{service.servicer}</Table.Cell>
-                                <Table.Cell>${service.cost}</Table.Cell>
-                                <Table.Cell>{service.date.slice(0,9)}</Table.Cell>
-                                {showUpdateService ? <Table.Cell><button className="ui button" onClick={()=>handleDeleteService(service._id)}>X</button></Table.Cell>: undefined}
+                            <Table.Row key={upgrade._id}>
+                                <Table.Cell>{upgrade.part}</Table.Cell>
+                                <Table.Cell>{upgrade.brand}</Table.Cell>
+                                <Table.Cell>${upgrade.cost}</Table.Cell>
+                                {showUpdateUpgrade ? <Table.Cell><button className="ui button" onClick={()=>handleDeleteUpgrade(upgrade._id)}>X</button></Table.Cell>: undefined}
                             </Table.Row>
                         )
                     })}
                 </Table.Body>
             </Table>
-            <button className="ui button" onClick={toggleUpdateService}>Update History</button>
+            <button className="ui button" onClick={toggleUpdateUpgrade}>Update Parts</button>
         </>
     )
 }
