@@ -32,3 +32,4 @@ Trello https://trello.com/b/9j4fEWnc/car-tracker
 ### Next steps
 1. Add a update user profile form
 2. Allow user to download service history as pdf
+3. Add laoding indicators
