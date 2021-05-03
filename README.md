@@ -1,39 +1,34 @@
-## Setup 
-
-1. Clone the repo
-2. Rename the folder to your Project, you can use the `mv` command like `mv mern-boilerplate yourprojectname`
-3. Delete the `.git` file, when you are in the root of the file, you can press `ls` and you should see a `.git` file, then go ahead and run `rm -rf .git`
+# Car Tracker
 
 
-#### Setup your git repo
+Car Tracker is a vehicle service history
 
-1. go to github and create your github and create a repo (Without a readme or liscense you can add that later!)
-2.  Then follow the directions on github that says ```…or create a new repository on the command line```
+## screenshots
 
-it should look like this
+![screenshot](/readmeImages/Dashboard.jpg)
+![screenshot](/readmeImages/CarDetails.jpg)
 
-```
-git init
-git add .
-git commit -m "first commit"
-git remote add origin git@git.generalassemb.ly:SEI-CC/test.git // this will be whatever your address will be
-git push -u origin master
-```
+#### Technologies used
 
-#### Setup the App
+1. HTML
+2. CSS
+3. JAVASCRIPT
+4. NODE.JS
+5. EXPRESS
+6. MONGODB
+7. MONGOOSE
+8. React
 
-```npm install```
+## Getting started
 
-*DOTENV*
+### Site page:
+### https://mlasota-cartracker.herokuapp.com/
 
-`touch .env`
 
-add your variables
 
-```
-DATABASE_URL=mongodb://localhost:27017/testagramV2
-BUCKET_NAME=catcollectorone
-SECRET=mysecretforjwt
-```
+Trello https://trello.com/b/9j4fEWnc/car-tracker
 
-The app is configured, to use those respective key names for the database, jwt secret and aws bucket, of course you'll have your own values
+
+### Next steps
+1. Add a update user profile form
+2. Allow user to download service history as pdf
