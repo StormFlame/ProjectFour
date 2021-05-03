@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import { Grid, Image } from 'semantic-ui-react'
+import { Grid, Image, Card } from 'semantic-ui-react'
 import userService from '../../utils/userService';
 import PageHeader from '../../components/Header/Header';
 import { useLocation } from 'react-router-dom';
-import BubbleChart from '../../components/BubbleChart/BubbleChart';
 
 export default function ProfilePage({user,handleLogout}){
 
@@ -38,11 +37,18 @@ export default function ProfilePage({user,handleLogout}){
                     <PageHeader handleLogout={handleLogout} user={user}/>
                 </Grid.Column>
             </Grid.Row>
-            <h1>{profileUser.username}</h1>
-            <Image src={profileUser.photoUrl ? `${profileUser.photoUrl}` : 'https://react.semantic-ui.com/images/wireframe/square-image.png'} />
+
             <Grid.Row>
-                <Grid.Column width={3}>
-                    <BubbleChart width={150} height={77} radius={40}/>
+                <Grid.Column width={8} textAlign='center'>
+                    <Card centered fluid>
+                        <Card.Content>
+                            <Card.Header>{user.username}</Card.Header>
+                        
+                            <div className="ui divider"></div>
+                            <Image src={profileUser.photoUrl ? `${profileUser.photoUrl}` : 'https://react.semantic-ui.com/images/wireframe/square-image.png'} />
+                            
+                        </Card.Content>
+                    </Card>
                 </Grid.Column>
             </Grid.Row>
         </Grid>

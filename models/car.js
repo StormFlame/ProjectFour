@@ -17,6 +17,11 @@ const carSchema = new schema({
     year: String,
     imageURL: String,
     performance: Boolean,
+    hp: Number,
+    torque: Number,
+    topSpeed: Number,
+    zeroSixty: Number,
+    share: Boolean,
     performanceUpgrades:[performanceUpgrade]
 })
 

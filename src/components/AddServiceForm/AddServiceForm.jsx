@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Button, Form, Grid, Header, Image,  Segment, Dropdown, PopupHeader } from 'semantic-ui-react'
+import { Form, Grid, Segment, Divider, Header } from 'semantic-ui-react'
 
 
 export default function AddServiceForm(props){
@@ -35,16 +35,23 @@ export default function AddServiceForm(props){
         <Grid>
             <Grid.Column>
                 <Segment>
-                    <label>Add a Service</label>
+                    <Header as='h3'>Add a Service</Header>
                     <Form onSubmit={handleSubmit}>
                         <label>Name of Service</label>
                         <input required onChange={handleChange} name="name" type="text" placeholder="Name"/> 
+                        <Divider hidden/>
                         <label>Serviced By</label>
                         <input required onChange={handleChange} name="servicer" type="text" placeholder="Serviced By"/>
+                        <Divider hidden/>
+
                         <label>Cost of Service</label>
                         <input required onChange={handleChange} name="cost" type="number" min="0.01" step="0.01" max="100000" placeholder="Cost"/>
+                        <Divider hidden/>
+
                         <label>Date of Service</label>
                         <input required onChange={handleChange} name="date" type="date" placeholder="Cost"/>
+                        <Divider />
+
                         <input required type="submit" value="Add Service"/>
                     </Form>
                 </Segment>

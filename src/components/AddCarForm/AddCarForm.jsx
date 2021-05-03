@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Button, Form, Grid, Header, Image,  Segment, Dropdown } from 'semantic-ui-react'
+import { Form, Grid, Header, Segment, Divider } from 'semantic-ui-react'
 
 
 export default function AddCarForm(props){
@@ -74,30 +74,52 @@ export default function AddCarForm(props){
         <Grid centered>
             <Grid.Column>
                 <Segment>
-                    <label>Add a Vehicle</label>
+                    <Header as='h3'>Add a Vehicle</Header>
                     <Form onSubmit={handleSubmit}>
                         <label>Name(Optional)</label>
                         <input onChange={handleChange} name="name" type="text" placeholder="Name"/>
+                        <Divider hidden/>
                         <label>Year</label>
                         <input required onChange={handleChange} name="year" type="number" value={car.year}/>
+                        <Divider hidden/>
+
                         <label>Make</label>
-                        <select required onChange={handleChange} name="make" value={car.make}>
-                            {makes.map((make) => {
-                                return(<option key={make.MakeName} value={make.MakeName}>{make.MakeName}</option>)
-                                })
-                            }
-                        </select>
+                        {makes.length <= 1 ?
+                            <input onChange={handleChange} name="make" type="text" placeholder="Make"/>
+                        :
+                            <select required onChange={handleChange} name="make" value={car.make}>
+                                {makes.map((make) => {
+                                    return(<option key={make.MakeName} value={make.MakeName}>{make.MakeName}</option>)
+                                    })
+                                }
+                            </select>
+                        }
+                        <Divider hidden/>
+
                         <label>Model</label>
-                        <select required onChange={handleChange} name="model" value={car.model}>
-                            {models.map((model) => {
-                                    return (<option value={model.Model_Name} key={model.Model_Name}>{model.Model_Name}</option>)
-                                })                    
-                            }
-                        </select>
+                        {models.length <= 1 ?
+                            <input onChange={handleChange} name="model" type="text" placeholder="Model"/>
+                        : 
+                            <select required onChange={handleChange} name="model" value={car.model}>
+                                {models.map((model) => {
+                                        return (<option value={model.Model_Name} key={model.Model_Name}>{model.Model_Name}</option>)
+                                    })                    
+                                }
+                            </select>
+                        }
+
+                        <Divider hidden/>
+
                         <label>Submodel</label>
                         <input onChange={handleChange} name="submodel" type="text" placeholder="Submodel"/>
+                        <Divider hidden/>
+
                         <label>Image(Optional)</label>
+                        <Divider hidden/>
+
                         <input type="file" name="photo" onChange={handleFileInput}/>
+                        <Divider/>
+
                         <input required type="submit" value="Add Car"/>
                     </Form>
                 </Segment>

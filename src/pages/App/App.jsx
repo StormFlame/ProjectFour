@@ -7,6 +7,7 @@ import userService from '../../utils/userService'
 import Dashboard from '../Dashboard/Dashboard';
 import CarDetails from '../CarDetails/CarDetails';
 import ProfilePage from '../ProfilePage/ProfilePage';
+import CarBuilds from '../CarBuilds/CarBuilds';
 
 
 function App() {
@@ -38,6 +39,9 @@ function App() {
              <Switch>
                 <Route exact path="/">
                     <Dashboard handleLogout={handleLogout} user={user}/>
+                </Route>
+                <Route exact path="/cars/builds">
+                  <CarBuilds handleLogout={handleLogout} user={user}/>
                 </Route>
                 <Route path="/cars/:id">
                   <CarDetails handleLogout={handleLogout} user={user}/>

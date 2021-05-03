@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Table } from 'semantic-ui-react'
 
-export default function PerformanceUpgradesTable({performanceUpgrades, handleDeleteUpgrade}){
+export default function PerformanceUpgradesTable({performanceUpgrades, handleDeleteUpgrade, isUser}){
 
     const [showUpdateUpgrade, setShowUpdateUpgrade] = useState(false)
 
@@ -33,7 +33,9 @@ export default function PerformanceUpgradesTable({performanceUpgrades, handleDel
                     })}
                 </Table.Body>
             </Table>
+            {isUser ?
             <button className="ui button" onClick={toggleUpdateUpgrade}>Update Parts</button>
+            : undefined}
         </>
     )
 }

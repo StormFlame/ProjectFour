@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Button, Form, Grid, Header, Image,  Segment, Dropdown } from 'semantic-ui-react'
+import { Divider, Form, Grid, Segment } from 'semantic-ui-react'
 
 
 export default function AddCarForm(props){
@@ -40,15 +40,18 @@ export default function AddCarForm(props){
     return(
         <Grid>
             <Grid.Column>
+                <div className="ui divider"></div>
                 <Segment>
                     <Form onSubmit={handleSubmit}>
                         <label>Update Name</label>
                         <input onChange={handleChange} name="name" type="text" placeholder="Name"/>
+                        <Divider hidden/>
                         <label>Update Image</label>
                         <input type="file" name="photo" onChange={handleFileInput}/>
+                        <Divider hidden/>
                         <label>Is this car a performance build? </label>
                         <input onChange={handleChange} name="performance" type="checkbox" value={checked} checked={checked}/>
-                        <br/>
+                        <div className="ui divider"></div>
                         <input required type="submit" value="Update Car"/>
                     </Form>
                 </Segment>

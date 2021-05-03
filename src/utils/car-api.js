@@ -22,6 +22,18 @@ export function update(car, carID){
     }).then(res => res.json())
 }
 
+export function updatePerfStats(car, carID){
+    return fetch(`${BASE_URL}/${carID}/performance`, {
+        method: 'PUT',
+        body: JSON.stringify(car),
+        headers: {
+            'Authorization': 'Bearer ' + tokenService.getToken(),
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+}
+
+
 export function getOne(carID){
     return fetch(`${BASE_URL}/${carID}`,{
         headers: {
@@ -32,6 +44,15 @@ export function getOne(carID){
 
 export function getAll(){
     return fetch(BASE_URL, {
+        headers: {
+            'Authorization': 'Bearer ' + tokenService.getToken()
+        }
+    })
+    .then(res => res.json());
+}
+
+export function getBuilds(){
+    return fetch(`${BASE_URL}/builds`, {
         headers: {
             'Authorization': 'Bearer ' + tokenService.getToken()
         }

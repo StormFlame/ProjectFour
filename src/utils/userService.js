@@ -56,11 +56,19 @@ function getProfile(username){
   })
 }
 
+function isUser(user){
+  console.log(getUser()._id, user)
+  if(getUser()._id === user){
+    return true;
+  }
+  return false;
+}
 
 export default {
   signup, 
   logout,
   login,
   getUser,
-  getProfile
+  getProfile,
+  isUser
 };

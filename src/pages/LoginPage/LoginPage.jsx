@@ -46,6 +46,7 @@ export default function LoginPage(props){
             <Grid.Column style={{ maxWidth: 450 }}>
             <Header as='h2' color='red' textAlign='center'>
             </Header>
+            <Header as='h2'>Car Tracker</Header>
             <Form  autoComplete="off"  onSubmit={handleSubmit}>
                <Segment stacked>
                   <Form.Input
@@ -77,7 +78,7 @@ export default function LoginPage(props){
               </Segment>
             </Form>
             <Message>
-              New to us? <Link to='/signup'>Sign Up</Link>
+              Don't Have an Account? <Link to='/signup'>Sign Up</Link>
             </Message>
             {error ? <ErrorMessage error={error} /> : null}
             </Grid.Column>

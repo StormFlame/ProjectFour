@@ -11,7 +11,9 @@ module.exports = {
     index,
     deleteCar,
     show: showCar,
-    update: updateCar
+    update: updateCar,
+    updatePerfStats,
+    sharedIndex
 }
 
 async function create(req, res){
@@ -57,6 +59,18 @@ async function index(req, res){
     }
 }
 
+async function sharedIndex(req, res){
+    try {
+        // on a query aka .find({}) you just call .exec() to execulate the .populate('user')
+        const cars = await Car.find({'share':true, 'performance':true}).populate('user').exec()
+        // userSchema.set('toObject') gets invoked, to delete the password
+        // when we populate the user so we don't have to worry about sending over the password!
+        res.status(200).json({cars})
+    } catch(err){
+        res.json(err)
+    }
+}
+
 async function deleteCar(req, res){
     try{
         const car = Car.findOneAndDelete({'_id':req.params.id}, function(err){
@@ -89,11 +103,33 @@ async function updateCar(req, res){
 
             image = await s3.upload(params).promise()
         }
-        const newValues = {$set: {name: req.body.name, imageURL: image ? image.Location : req.body.photo}, performance: req.body.performance}
+        const newValues = {$set: {name: req.body.name, imageURL: image ? image.Location : req.body.photo, performance: req.body.performance}}
         Car.findByIdAndUpdate(req.params.id, newValues, function(err, car){
             if(err) console.log(err)
+            console.log(car)
             res.status(200).json({car})
         })
+
+    }catch(err){
+        res.json({error: err})
+    }
+}
+
+async function updatePerfStats(req, res){
+    try{
+        if(req.body.share !== undefined){
+            const newValues = {$set: {share: req.body.share} }
+            Car.findByIdAndUpdate(req.params.id, newValues, function(err, car){
+                if(err) console.log(err)
+                res.status(200).json({car})
+            })
+        }else{
+            const newValues = {$set: {hp: req.body.hp, torque: req.body.torque, topSpeed: req.body.topSpeed, zeroSixty: req.body.zeroSixty} }
+            Car.findByIdAndUpdate(req.params.id, newValues, function(err, car){
+                if(err) console.log(err)
+                res.status(200).json({car})
+            })
+        }
 
     }catch(err){
         res.json({error: err})

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import AddCarForm from '../../components/AddCarForm/AddCarForm';
 import * as carApi from '../../utils/car-api';
 import CarGrid from '../../components/CarGrid/CarGrid';
-import {  Grid } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import PageHeader from '../../components/Header/Header';
 import './Dashboard.css'
 
@@ -32,7 +32,6 @@ export default function Dashboard({user, handleLogout}){
     async function getCars(){
         try{
             const data = await carApi.getAll();
-            console.log(data)
             setCars([...data.cars])
         }catch(err){
             console.log(err, ' error')
@@ -45,7 +44,7 @@ export default function Dashboard({user, handleLogout}){
 
     return(
         <>
-                <Grid centered >
+                <Grid centered>
                     <Grid.Row>
                         <Grid.Column>
                             <PageHeader handleLogout={handleLogout} user={user}/>

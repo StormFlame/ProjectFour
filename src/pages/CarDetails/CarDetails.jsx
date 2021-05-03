@@ -12,9 +12,12 @@ import PageHeader from '../../components/Header/Header';
 import './CarDetails.css'
 import AddPerformanceUpgradeForm from '../../components/AddPerformanceUpgradeForm/AddPerformanceUpgradeForm';
 import PerformanceUpgradesTable from '../../components/PerformanceUpgradesTable/PerformanceUpgradesTable';
+import PerformanceStatistics from '../../components/PerformanceStatistics/PerformanceStatistics';
+import userService from '../../utils/userService'
 
-export default function CarDetails({user,handleLogout}){
+export default function CarDetails({user, handleLogout}){
     const {id} = useParams()
+    const [isUser, setIsUser] = useState(false);
     const [showUpdateForm, setShowUpdateForm] = useState(false)
     const [showServicesTable, setShowServicesTable] = useState(true)
     const[services, setServices] = useState([])
@@ -27,11 +30,19 @@ export default function CarDetails({user,handleLogout}){
         imaegURL: '',
         performance: false
     })
-    
     useEffect(() => {
         getCar()
         getService()
     }, [])
+
+    useEffect(()=>{
+        setIsUser(userService.isUser(car.user))
+        if(!userService.isUser(car.user)){
+            setShowServicesTable(false)
+        }else{
+            setShowServicesTable(true)
+        }
+    },[car])
 
     async function getCar(){
         try{
@@ -46,6 +57,15 @@ export default function CarDetails({user,handleLogout}){
     async function updateCar(carForm){
         try{
             const data = await carApi.update(carForm, id)
+            getCar()
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    async function handleUpdatePerfStats(newPerfStats){
+        try{
+            const data = await carApi.updatePerfStats(newPerfStats, id)
             getCar()
         }catch(err){
             console.log(err)
@@ -122,35 +142,41 @@ export default function CarDetails({user,handleLogout}){
                     </Grid.Row>
                     <Grid.Row columns={car.performance ? 3 : 2}>
                        {car.performance ? 
-                        <Grid.Column width={5}>
-                            Stats Table
+                        <Grid.Column width={5} textAlign='center'>
+                            <PerformanceStatistics car={car} handleUpdatePerfStats={handleUpdatePerfStats} isUser={isUser}/>
                         </Grid.Column>
                         : undefined}
                         <Grid.Column width={5} textAlign='center'>
                             <CarCard car={car} isProfile={true}/>
+
+                            {isUser ?                             
                             <button className="ui button" onClick={toggleUpdateForm}>Update</button>
+                            : undefined }
                             {showUpdateForm ? <UpdateCarFrom car={car} handleUpdateCar={updateCar}/> : ""}
+
                         </Grid.Column>
-                        <Grid.Column width={5}>
-                            {showServicesTable ?
-                                <AddServiceForm handleAddService={handleAddService}/>
-                                :
-                                <AddPerformanceUpgradeForm handleAddPerformanceUpgrade={handleAddPerformanceUpgrade}/>
-                            }
-                        </Grid.Column>
+                        {isUser ?
+                            <Grid.Column width={5}>
+                                {showServicesTable ?
+                                    <AddServiceForm handleAddService={handleAddService}/>
+                                    :
+                                    <AddPerformanceUpgradeForm handleAddPerformanceUpgrade={handleAddPerformanceUpgrade}/>
+                                }
+                            </Grid.Column>
+                        : undefined}   
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column width={10} textAlign='center'>
-                        {car.performance ?
+                        {car.performance && isUser ?
                             <Menu pointing secondary>
                                 <Menu.Item name='Services' onClick={()=>handleShowServicesTable(false)}/>
                                 <Menu.Item name='Performance' onClick={()=>handleShowServicesTable(true)}/>
                             </Menu>
                             : undefined}
                             {showServicesTable ? 
-                                <ServicesTable services={services} handleDeleteService={handleDeleteService}/>
+                                <ServicesTable services={services} handleDeleteService={handleDeleteService} />
                                 :
-                                <PerformanceUpgradesTable performanceUpgrades={performanceUpgrades} handleDeleteUpgrade={handleRemovePerformanceUpgrade}/>
+                                <PerformanceUpgradesTable performanceUpgrades={performanceUpgrades} handleDeleteUpgrade={handleRemovePerformanceUpgrade} isUser={isUser}/>
                             }
                         </Grid.Column>
                     </Grid.Row>
