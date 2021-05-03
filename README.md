@@ -1,7 +1,7 @@
 # Car Tracker
 
 
-Car Tracker is a vehicle service history
+Car Tracker is a vehicle service history tracker made for keeping track of a car's service history for the purpose of organization and convenience. The site can also be used to track and post performance built vehicles.
 
 ## screenshots
 
