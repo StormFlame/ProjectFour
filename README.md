@@ -5,9 +5,7 @@ Car Tracker is a vehicle service history tracker made for keeping track of a car
 
 ## screenshots
 
-![screenshot](/readmeImages/Dashboard.jpg)
 ![screenshot](/readmeImages/Dashboard.png)
-![screenshot](/readmeImages/CarDetails.jpg)
 ![screenshot](/readmeImages/CarDetails.png)
 
 #### Technologies used
